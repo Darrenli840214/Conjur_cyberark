@@ -1,0 +1,26 @@
+  mysql:
+    image: mysql:5.7
+    container_name: mysql_database
+    volumes:
+    - ./conf/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: darren
+      MYSQL_PASSWORD: darrentest
+    restart: on-failure
+    ports:
+      - 6033:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    environment:
+      PMA_HOST: mysql_database
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8082:80
+    depends_on:
+      - mysql
