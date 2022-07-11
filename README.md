@@ -2,7 +2,7 @@
 ## Conjur實作
 
 ### 使用環境 
-GCP上架設虛擬機器，CPU 8 核心 、 RAM 32 GB
+> GCP上架設虛擬機器，CPU 8 核心 、 RAM 32 GB
 
 ### 操作步驟
 
