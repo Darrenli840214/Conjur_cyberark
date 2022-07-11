@@ -174,3 +174,34 @@ main() {
 main "$@"
 exit
 ```
+
+22. 撰寫Python 檔案，在Conjur中取得密碼，並連線 MySQL 執行QUERY 取得MySQL版本
+```python
+#!/usr/bin/env python3
+from conjur import Client
+import pymysql
+
+client = Client(url='https://`<你的IP:8443>`',
+                account='myConjurAccount',
+                login_id="Darren@mysql",
+                api_key="你的API KEY",
+                ssl_verify=False)
+
+ip=client.get('mysql/ip').decode('utf-8')
+username=client.get('mysql/username').decode('utf-8')
+password=client.get('mysql/password').decode('utf-8')
+
+db = pymysql.connect(host='你的IP', port=6033, user=username, passwd=password, db='test', charset='utf8')
+
+cursor = db.cursor()
+
+sql = 'SELECT VERSION()'
+
+cursor.execute(sql)
+
+data = cursor.fetchone()
+
+print ("Database version : %s " % data)
+
+db.close()
+```
