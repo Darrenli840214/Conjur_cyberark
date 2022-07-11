@@ -174,8 +174,12 @@ main() {
 main "$@"
 exit
 ```
+22. 下載python的conjur-client套件，務必要下載client端的，否則會無法使用
+```linux
+pip3 install conjur-client
+```
 
-22. 撰寫Python 檔案，在Conjur中取得密碼，並連線 MySQL 執行QUERY 取得MySQL版本
+23. 撰寫Python 檔案，在Conjur中取得密碼，並連線 MySQL 執行QUERY 取得MySQL版本
 ```python
 #!/usr/bin/env python3
 from conjur import Client
