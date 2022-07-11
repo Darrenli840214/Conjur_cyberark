@@ -45,9 +45,9 @@ cd ..
 
 docker-compose exec client conjur policy load root policy/mysql.yml > mysql_data
 
-ip=<你的IP>
-username=<你設定的MySQL用戶>
-password=<你設定的MySQL密碼>
+ip=`<你的IP>`
+username=`<你設定的MySQL用戶>`
+password=`<你設定的MySQL密碼>`
 echo $ip,$username,$password
 
 docker-compose exec client conjur variable values add mysql/ip ${ip}
@@ -56,13 +56,13 @@ docker-compose exec client conjur variable values add mysql/password ${password}
 
 curl -d `"你的MyDemoApp的API KEY"` -k https://`<你的IP:8443>`/authn/myConjurAccount/host%2Fmysql%2FmyDemoApp/authenticate > conjur_token
 
-CONT_SESSION_TOKEN=$(cat /home/darrenli840214/conjur-quickstart/conjur_token| base64 | tr -d '\r\n')                                                  
+CONT_SESSION_TOKEN=$(cat /home/`你的電腦使用者名稱`/conjur-quickstart/conjur_token| base64 | tr -d '\r\n')                                                  
 
-VAR_VALUE_IP=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://34.145.126.91:8443/secrets/myConjurAccount/variable/mysql%2Fip)
+VAR_VALUE_IP=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fip)
 
-VAR_VALUE_USER=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://34.145.126.91:8443/secrets/myConjurAccount/variable/mysql%2Fusername)
+VAR_VALUE_USER=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fusername)
 
-VAR_VALUE_PASSWD=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://34.145.126.91:8443/secrets/myConjurAccount/variable/mysql%2Fpassword)
+VAR_VALUE_PASSWD=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fpassword)
 
 
 echo "The retrieved value is: $VAR_VALUE_IP"
