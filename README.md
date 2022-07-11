@@ -4,8 +4,8 @@
 > GCP上架設虛擬機器，CPU 8 核心 、 RAM 32 GB
 
 ### 目標
-> 安裝好 Conjur/ MySQL
-> 在Conjur上將 MySQL 的 IP/ USERNAME / PASSWORD 設置上去，並限制由SERVER A取得
+> 安裝好 Conjur/ MySQL 
+> 在Conjur上將 MySQL 的 IP/ USERNAME / PASSWORD 設置上去，並限制由SERVER A取得 
 > 在SERVER A 上以Python 實作一支 Script，透過 Conjur 的 REST API 取得MySQL 登入資訊後，登入MySQL 執行一個DB QUERY
 
 ### 操作步驟
