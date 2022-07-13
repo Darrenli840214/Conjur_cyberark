@@ -36,10 +36,10 @@ cd conjur-quickstart/ vim docker-compose.yml
     volumes:
     - ./conf/mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: `你想設定的root密碼`
-      MYSQL_DATABASE: `你想創建的資料庫名稱`
-      MYSQL_USER: `你想創建的用戶`
-      MYSQL_PASSWORD: `用戶密碼`
+      MYSQL_ROOT_PASSWORD: 你想設定的root密碼
+      MYSQL_DATABASE: 你想創建的資料庫名稱
+      MYSQL_USER: 你想創建的用戶
+      MYSQL_PASSWORD: 用戶密碼
     restart: on-failure
     ports:
       - 6033:3306
@@ -121,7 +121,7 @@ cd ~/conjur-quickstart/ && docker-compose exec client conjur policy load root po
 
 15. 設定變數，並確認是否有設定成功
 ```linux
-ip=`<你的IP>` && username=`<你設定的MySQL用戶>` && password=`<你設定的MySQL密碼>` && echo $ip,$username,$password
+ip=<你的IP> && username=<你設定的MySQL用戶> && password=<你設定的MySQL密碼> && echo $ip,$username,$password
 ```
 
 16. 將變數新增到policy中
@@ -131,7 +131,7 @@ docker-compose exec client conjur variable values add mysql/ip ${ip} && docker-c
 
 17. 取得認證，並將憑證存放在 conjur_token 檔案內
 ```linux
-curl -d `"你的MyDemoApp的API KEY"` -k https://`<你的IP:8443>`/authn/myConjurAccount/host%2Fmysql%2FmyDemoApp/authenticate > conjur_token
+curl -d "你的MyDemoApp的API KEY" -k https://<你的IP:8443>/authn/myConjurAccount/host%2Fmysql%2FmyDemoApp/authenticate > conjur_token
 ```
 
 18. 抓取憑證，存取為 CONT_SESSION_TOKEN 變數
@@ -141,13 +141,13 @@ CONT_SESSION_TOKEN=$(cat ~/conjur-quickstart/conjur_token| base64 | tr -d '\r\n'
 
 19. 透過REST API認證取得資訊，並將 IP, USERNAME , PASSWORD 存放到變數中
 ```linux
-VAR_VALUE_IP=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fip)
+VAR_VALUE_IP=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://<你的IP:8443>/secrets/myConjurAccount/variable/mysql%2Fip)
 ```
 ```linux
-VAR_VALUE_USER=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fusername)
+VAR_VALUE_USER=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://<你的IP:8443>/secrets/myConjurAccount/variable/mysql%2Fusername)
 ```
 ```linux
-VAR_VALUE_PASSWD=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fpassword)
+VAR_VALUE_PASSWD=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://<你的IP:8443>/secrets/myConjurAccount/variable/mysql%2Fpassword)
 ```
 
 20. 確認有無取得 IP, USERNAME , PASSWORD
@@ -162,11 +162,11 @@ echo "The retrieved value is: $VAR_VALUE_PASSWD"
 #!/bin/bash
 main() {
   CONT_SESSION_TOKEN=$(cat ~/conjur-quickstart/conjur_token| base64 | tr -d '\r\n')
-  VAR_VALUE_USER=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fusername)
+  VAR_VALUE_USER=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://<你的IP:8443>/secrets/myConjurAccount/variable/mysql%2Fusername)
 
-  VAR_VALUE_PASSWD=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fpassword)
+  VAR_VALUE_PASSWD=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://<你的IP:8443>/secrets/myConjurAccount/variable/mysql%2Fpassword)
 
-  VAR_VALUE_IP=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://`<你的IP:8443>`/secrets/myConjurAccount/variable/mysql%2Fip)
+  VAR_VALUE_IP=$(curl -s -k -H "Content-Type: application/json" -H "Authorization: Token token=\"$CONT_SESSION_TOKEN\"" https://<你的IP:8443>/secrets/myConjurAccount/variable/mysql%2Fip)
   echo "The ip is: $VAR_VALUE_IP"
   echo "The username is: $VAR_VALUE_USER"
   echo "The password is: $VAR_VALUE_PASSWD"
@@ -185,7 +185,7 @@ pip3 install conjur-client
 from conjur import Client
 import pymysql
 
-client = Client(url='https://`<你的IP:8443>`',
+client = Client(url='https://<你的IP:8443>',
                 account='myConjurAccount',
                 login_id="Darren@mysql",
                 api_key="你的API KEY",
